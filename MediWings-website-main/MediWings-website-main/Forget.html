@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Change Password</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Ionicons library for using icons like eye, social media logos etc. -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Internal CSS styling for layout and responsiveness -->
+  <style>
+    .container {
+      display: flex;                 
+      flex-direction: column;
+      align-items: center;           
+      padding-top: 100px;           
+    }
+
+    .arrow a {
+      text-decoration: none;        
+    }
+
+    .arrow {
+      font-size: 25px;
+      margin: 0 15px;
+      color: black;
+    }
+
+    h1 {
+      text-align: center;
+      color: blue;                   
+    }
+
+    form {
+      display: flex;                 
+      flex-direction: column;       
+      gap: 7px;                     
+      width: 380px;
+      margin: 10px;
+    }
+
+    /* Styling the email and password input fields */
+    input[type="email"],
+    input[type="password"] {
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 380px;
+    }
+
+    .submit {
+      display: flex;
+      justify-content: center;      
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .button {
+      padding: 12px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: blue;       
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 50px;
+    }
+    /* Changes to green on hover */
+    .button:hover {
+      background-color: green;       
+      color: black;
+    }
+
+    /* Links below the form for password recovery etc. */
+    .password {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .password a {
+      text-decoration: none;
+      font-weight: bold;
+      color: blue;
+    }
+
+    .password a:hover {
+      color: green;
+    }
+
+    /* Error and success messages after form submission */
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    /* Wrapper around password fields to hold the input + eye icon */
+    .password-wrapper {
+      position: relative;           
+      margin-bottom: 10px;
+    }
+
+    .password-wrapper input {
+      width: 100%;
+      padding: 15px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .toggle-eye {
+      position: absolute;
+      top: 50%;                      
+      right: 10px;                   
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+      font-size: 22px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    /* Responsive styling for smaller screens (phones/tablets) */
+    @media (max-width: 768px) {
+      form {
+        width: 210px;
+        max-width: 100%;
+      }
+      input[type="email"],
+      input[type="password"] {
+        width: 200px;
+      }
+      .button {
+        font-size: 20px;
+        margin-left: 10px;
+      }
+      .password-wrapper {
+        width: 230px;
+      }
+      ::placeholder {
+        font-weight: bold;           
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header section with logo -->
+  <header class="head">
+    <div class="logo">
+      <img src="img/logo.png" alt="logo" />
+    </div>
+  </header>
+
+  <!-- Back arrow navigation -->
+  <div class="arrow">
+    <a href="index.html"><img src="img/arrow.png" alt="This is arrow to go back to the previous"></a>
+  </div>
+
+  <!-- Main section for password change -->
+  <section class="container">
+    <h1>Change Password</h1>
+
+    <div>
+      <form id="loginForm">
+        <!-- Username/email field -->
+        <label for="Username"><strong>Username:</strong></label>
+        <input type="email" placeholder="Enter Clinics Username" id="Username" required />
+
+        <!-- New password field with toggle eye icon -->
+        <label for="password"><strong>New Password:</strong></label>
+        <div class="password-wrapper">
+          <input type="password" id="password" placeholder="Enter New Password" required />
+          <ion-icon name="eye-off-outline" class="toggle-eye" onclick="togglePassword('password', this)"></ion-icon>
+        </div>
+
+        <!-- Confirm password field with toggle eye icon -->
+        <label for="confirmPassword"><strong>Confirm Password:</strong></label>
+        <div class="password-wrapper">
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+          <ion-icon name="eye-off-outline" class="toggle-eye" onclick="togglePassword('confirmPassword', this)"></ion-icon>
+        </div>
+
+        <!-- Submit button to sign in -->
+        <div class="submit">
+          <button class="button" type="submit">Confirm</button>
+        </div>
+
+        <!-- Area where error or success messages will show  when user submit-->
+        <p id="errorMsg" class="error"></p>
+        <p id="successMsg" class="success"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- JavaScript to validate form and toggle password visibility -->
+  <script>
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); 
+
+      const email = document.getElementById("Username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+      // Reset messages
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+
+      // This is a Validation checks
+      if (email === "" || password === "" || confirmPassword === "") {
+        errorMsg.textContent = "Please fill in all fields.";
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        errorMsg.textContent = "Please enter a valid email address.";
+      } else if (password !== confirmPassword) {
+        errorMsg.textContent = "Passwords do not match.";
+      } else {
+        successMsg.textContent = "Password changed successfully.";
+       
+      }
+    });
+
+    // Function to show or hide password when clicking the eye icon
+    function togglePassword(fieldId, icon) {
+      const field = document.getElementById(fieldId);
+      const isPassword = field.type === "password";
+
+      field.type = isPassword ? "text" : "password";
+      icon.setAttribute("name", isPassword ? "eye-outline" : "eye-off-outline");
+    }
+  </script>
+
+  <!-- Footer with company info and social media links -->
+  <footer class="footer">
+    <p class="footer-text">©MediWings 2025 <br>
+      Cape Town, South Africa<br>
+      Phone: +27 798 4213 42 <br>
+      Email: MediWings@.com
+    </p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><ion-icon name="logo-tiktok"></ion-icon></a>
+      <a href="https://www.youtube.com" target="_blank" aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+      <a href="https://www.whatsapp.com" target="_blank" aria-label="WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
+    </div>
+  </footer>
+</body>
+</html>

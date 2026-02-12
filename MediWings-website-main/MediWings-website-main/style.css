@@ -1,0 +1,376 @@
+/* Basic page styling - removes default margins and sets font */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+/* Header styling with blue background and spaced layout */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  background-color: rgba(14, 65, 160, 0.57); 
+  padding: 1rem; 
+}
+
+/* Mobile responsiveness for header - applies when screen is 768px or smaller */
+@media (max-width: 768px) {
+  header {
+    align-items: flex-start; 
+  }
+
+  /* Navigation menu as vertical column on mobile */
+  nav ul {
+    flex-direction: column; 
+    gap: 8px;
+    margin-top: 10px; 
+  }
+
+  /* Smaller font size for mobile navigation links */
+  nav ul li a {
+    font-size: 10px;
+    padding: 6px 10px; 
+  }
+}
+
+/* Logo image sizing */
+.logo img {
+  width: 60px;
+  height: 60px;
+}
+
+/* Navigation bar positioning */
+.navbar {
+  position: relative;
+}
+
+/* Navigation links styling - horizontal list */
+.navbar-links {
+  list-style: none; 
+  display: flex; 
+  gap: 10px; 
+  margin: 0;
+  padding: 0;
+}
+
+/* Navigation link text styling */
+.navbar-links li a {
+  text-decoration: none;
+  color: white; 
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Link color change on hover */
+.navbar-links li a:hover {
+  color: blue;
+}
+
+/* Button styling with blue background */
+.btn{
+  border: 1 solid black; 
+  padding: 10px 25px; 
+  margin: 0 15px; 
+  border-radius: 20px;
+  background:blue;
+}
+
+/* Button color change on hover */
+.btn:hover{
+  background-color: green;
+  color: black;
+}
+
+/* Hamburger menu icon - hidden by default */
+.hamburger {
+  display: none; 
+  font-size: 30px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer; 
+}
+
+/* Mobile styles for hamburger menu */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; 
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #fff;
+    z-index: 20; 
+    position: relative;
+  }
+
+  /* Full-screen mobile navigation menu - hidden by default */
+  .navbar-links {
+    display: none; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    background-color: rgba(83, 22, 226, 0.95); 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; 
+    z-index: 15;
+  }
+
+  /* Show navigation when active class is added (via JavaScript) */
+  .navbar-links.active {
+    display: flex;
+  }
+
+  /* Spacing between mobile menu items */
+  .navbar-links li {
+    margin: 1.5rem 0;
+  }
+
+  /* Mobile menu link styling */
+  .navbar-links li a {
+    color: #fff;
+    font-size: 35px; 
+    text-decoration: none;
+  }
+}
+
+/* Introduction section with gray background */
+.container-i {
+  background-color: #65686b; 
+  text-align: center; 
+  padding: 80px; 
+}
+
+/* Welcome text styling */
+.welcome {
+  font-size: 25px;
+  color: #3232b4; 
+  font-weight: bold;
+}
+
+/* Welcome paragraph text styling */
+.welcome-p {
+  font-size: 20px;
+  color: #f1f0f0; 
+  padding: 0 2rem; 
+}
+
+/* Grid layout section for content */
+section.grid-section {
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 10rem; 
+  align-items: center;
+  max-width: 1200px; 
+  margin: 4rem auto; 
+  padding: 0 2rem; 
+}
+
+/* Image styling in grid section */
+section.grid-section img {
+  width: 100%; 
+  max-width: 300px; 
+  border-radius: 10px; 
+}
+
+/* Section title styling */
+h1.section-title {
+  color: #3232b4; 
+  font-size: 25px;
+  margin-bottom: 1rem; 
+}
+
+/* Section text styling */
+p.section-text {
+  font-size: 18px;
+  line-height: 1.6; 
+  color: #0a0a0a; 
+}
+
+/* Mobile responsiveness for grid section */
+@media (max-width: 768px) {
+  .grid-section {
+    grid-template-columns: 1fr; 
+    gap: 4rem; 
+    text-align: center; 
+    padding: 0 1rem; 
+  }
+
+  /* Responsive drone images */
+  .drone img {
+    width: 90%; 
+    height: auto; 
+  }
+
+  /* Font size adjustments for mobile */
+  h1.section-title, .step h3 {
+    font-size: 25px;
+  }
+
+  p.section-text, .step p {
+    font-size: 20px;
+  }
+}
+
+/* Steps section with grid layout */
+.steps-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+  gap: 2rem; 
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: #fff; 
+}
+
+/* Individual step container */
+.step {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  padding: 1rem; 
+}
+
+/* Step icon sizing */
+.step-icon {
+  width: 80px;
+  height: auto; 
+  margin-bottom: 1rem; 
+}
+
+/* Step heading styling */
+.step h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+/* Step text styling */
+.step p {
+  font-size: 1rem;
+  color: #333333; 
+   max-width: 250px; 
+}
+
+/* Drone image container with decorative circles */
+.drone {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Large circle behind drone image */
+.drone::before {
+  width: 60%;
+  padding-bottom: 60%; 
+  background-color: #fdf2e9;
+  z-index: -2; 
+}
+
+/* Shared properties for both circles */
+.drone::before, .drone::after {
+  content: "";
+  display: block;
+  border-radius: 50%; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+/* Smaller circle behind drone image */
+.drone::after {
+  width: 45%;
+  padding-bottom: 45%; 
+  background-color: #fae5d3; 
+  z-index: -1;
+}
+
+/* Mobile adjustments for drone positioning */
+@media (max-width: 34em) {
+  .drone {
+    transform: translateY(2.4rem);
+  }
+  
+  /* Reordering drone elements for mobile layout */
+  .drone:nth-child(2) {
+    grid-row: 1; 
+  }
+  
+  .drone:nth-child(6) {
+    grid-row: 5; 
+  }
+}
+
+/* Centered blue heading */
+.heading{
+  text-align: center;
+  color: #3232b4; 
+}
+
+/* Footer styling with black background */
+.footer {
+  background-color: #0a0a0a; 
+  color: #fff; 
+  padding: 20px 0; 
+  justify-content: space-between; 
+  display: flex;
+  flex-wrap: wrap; 
+}
+
+/* Social icons list styling */
+.social-icons ul {
+  margin-bottom: 10px;
+  display: flex; 
+}
+
+/* Social icon styling */
+.social-icons a {
+  color: #fff; 
+  font-size: 28px;
+  margin: 10px; 
+  transition: color 0.3s ease; 
+}
+
+/* Social icon color change on hover */
+.social-icons a:hover {
+  color: #0044ff; 
+}
+
+/* Footer text styling */
+.footer-text {
+  font-size: 14px;
+  color: #ccc; 
+  margin-top: 10px;
+  margin: 20px; 
+}
+
+/* Mobile responsiveness for footer */
+@media (max-width: 768px) {
+  .footer{
+    display: block; 
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center; 
+    flex-wrap: wrap;
+  }
+
+  /* Hover effect for mobile */
+  .footer a:hover{
+    color: blue;
+  }
+  
+  /* Social icon spacing and size on mobile */
+  .social-icons a{
+    margin-left: 30px;
+    font-size: 30px;
+  }
+  
+  /* Larger text on mobile */
+  .footer-text {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Ionicons script for adding icons like eyes for password toggle or social logos -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Inline CSS for layout, inputs, buttons, and responsive design -->
+  <style>
+    /* Centers everything in the container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+    }
+
+    /* Styles for the back arrow link */
+    .arrow a {
+      text-decoration: none;
+      width: 250px;
+    }
+    .arrow {
+      font-size: 25px;
+      margin: 0 15px;
+      color: black;
+    }
+
+    /* Main heading style */
+    h1 {
+      text-align: center;
+      color: blue;
+    }
+
+    /* Styles for the form itself */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      width: 350px;
+      margin: 10px;
+    }
+
+    /* Input fields for text, email, and phone */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"] {
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 340px;
+    }
+
+    /* Container for submit button */
+    .submit {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    /* Button styling */
+    .button {
+      padding: 12px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 30px;
+    }
+    .button:hover {
+      background-color: green;
+      color: black;
+    }
+
+    /* Error and success message styling */
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    /* For password fields that include an eye icon */
+    .password-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .password-wrapper input {
+      width: 100%;
+      padding: 15px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .toggle-eye {
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #555;
+      font-size: 22px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    /* Responsive styling for tablets/phones */
+    @media (max-width: 768px) {
+      form {
+        width: 210px;
+        max-width: 100%;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      input[type="password"] {
+        width: 200px;
+      }
+      .button {
+        font-size: 20px;
+        margin-left: 10px;
+      }
+      .password-wrapper {
+        width: 220px;
+      }
+      ::placeholder {
+        font-weight: bold;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with logo -->
+  <header class="head">
+    <div class="logo">
+      <img src="img/logo.png" alt="logo" />
+    </div>
+  </header>
+
+  <!-- Arrow that takes user back to the previous page -->
+  <div class="arrow">
+    <a href="index.html"><img src="img/arrow.png" alt="This is arrow to go back to the previous"></a>
+  </div>
+
+  <!-- Section that holds the login form -->
+  <section class="container">
+    <h1>Sign In</h1>
+    <div>
+      <form id="loginForm">
+        <!-- Input for clinic name -->
+        <label for="clinicName"><strong>Clinics Name:</strong></label>
+        <input type="text" placeholder="Enter Clinics Name" id="clinicName" required />
+
+        <!-- Input for email -->
+        <label for="email"><strong>Email:</strong></label>
+        <input type="email" placeholder="Enter Clinics Email" id="email" required />
+
+        <!-- Input for phone number with validation -->
+        <label for="phoneNumber"><strong>Phone Number:</strong></label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder=" Enter Phone number" 
+               pattern="0[6-8][0-9]{8}" maxlength="10" required />
+
+        <!-- Input for password with toggle icon -->
+        <label for="password"><strong>Password:</strong></label>
+        <div class="password-wrapper">
+          <input type="password" id="password" placeholder="Enter Clinics Password" required />
+          <ion-icon name="eye-off-outline" class="toggle-eye" onclick="togglePassword('password', this)"></ion-icon>
+        </div>
+
+        <!-- Input for confirming password -->
+        <label for="confirmPassword"><strong>Confirm Password:</strong></label>
+        <div class="password-wrapper">
+          <input type="password" id="confirmPassword" placeholder="Confirm Clinics Password" required />
+          <ion-icon name="eye-off-outline" class="toggle-eye" onclick="togglePassword('confirmPassword', this)"></ion-icon>
+        </div>
+
+        <!-- Submit button -->
+        <div class="submit">
+          <button class="button" type="submit"><a hert="Home.html">Create Account</button>
+        </div>
+
+        <!-- Messages for validation feedback -->
+        <p id="errorMsg" class="error"></p>
+        <p id="successMsg" class="success"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Script for form validation and password toggle -->
+  <script>
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const clinicName = document.getElementById("clinicName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+
+      // Check that all fields are filled
+      if (!clinicName || !email || !password || !confirmPassword) {
+        errorMsg.textContent = "Please fill in all fields.";
+        return;
+      }
+
+      // Validate email format
+      if (!/\S+@\S+\.\S+/.test(email)) {
+        errorMsg.textContent = "Please enter a valid email address.";
+        return;
+      }
+
+      // Check password match
+      if (password !== confirmPassword) {
+        errorMsg.textContent = "Passwords do not match.";
+        return;
+      } 
+
+      // Success message and redirect
+      successMsg.textContent = "Account created successfully!";
+      setTimeout(function () {
+        window.location.href = "Home.html";
+      }, 1500); 
+    });
+
+    // Function to show/hide passwords when clicking eye icon
+    function togglePassword(fieldId, icon) {
+      const field = document.getElementById(fieldId);
+      const isPassword = field.type === "password";
+      field.type = isPassword ? "text" : "password";
+      icon.setAttribute("name", isPassword ? "eye-outline" : "eye-off-outline");
+    }
+
+    // Phone input validation: only allows digits and max 10 characters
+    const phoneInput = document.getElementById("phoneNumber");
+    phoneInput.addEventListener("input", function () {
+      this.value = this.value.replace(/\D/g, ''); 
+      if (this.value.length > 10) {
+        this.value = this.value.slice(0, 10);
+      }
+    });
+  </script>
+
+  <!-- Footer with company info and social links -->
+  <footer class="footer">
+    <p class="footer-text">©MediWings 2025 <br>
+      Cape Town, South Africa<br>
+      Phone +27 798 4213 42 <br>
+      Email MediWings@.com
+    </p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><ion-icon name="logo-tiktok"></ion-icon></a>
+      <a href="https://www.youtube.com" target="_blank" aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+      <a href="https://www.whatsapp.com" target="_blank" aria-label="WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediWings</title>
+  <link rel="stylesheet" href="style.css"/>
+
+  <!-- Ionicons library for icons (used in navigation and footer) -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+
+  <!-- Header: contains the company logo and navigation menu -->
+  <header class="head">
+    <div class="logo">
+      <img src="img/logo.png" alt="logo" />
+    </div>
+    <!-- Navigation bar with hamburger menu for smaller screens -->
+    <nav class="navbar">
+      <button class="hamburger" id="hamburger">&#9776;</button>
+      <ul id="menu" class="navbar-links">
+        <li><a href="Home.html">Home</a></li>
+        <li><a href="Service.html">Service</a></li>
+        <li><a href="TrackDelivery.html">Track Delivery</a></li>
+        <li><a href="ContactUs.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Welcome section with a short introduction about MediWings -->
+  <section class="container-i">
+    <h3 class="welcome">Welcome to MediWings</h3>
+    <p class="welcome-p">
+      We ensure to deliver medication quickly and with trust at your home.<br>
+      We use drone technology to give rural communities easier access to medications.
+    </p>
+  </section>
+
+  <!-- Grid section with About Us, What We Do, Vision, and Operations -->
+  <section class="grid-section">
+    <!-- About Us -->
+    <div>
+      <h1 class="section-title">About Us</h1>
+      <p class="section-text">We have implemented a healthcare system that uses drones to deliver medicines to people in rural areas.</p>
+    </div>
+    <div class="drone">
+      <img src="img/drone5.webp" alt="drone delivering medication" />
+    </div>
+
+    <!-- What We Do -->
+    <div class="drone">
+      <img src="img/drone2.jpg" alt="drone delivery" />
+    </div>
+    <div>
+      <h1 class="section-title">What We Do</h1>
+      <p class="section-text">We minimize medicine delivery times, extend healthcare reach, and improve health outcomes.</p>
+    </div>
+
+    <!-- Vision -->
+    <div>
+      <h1 class="section-title">Our Vision</h1>
+      <p class="section-text">We lead innovation to access healthcare solutions by leveraging technology to eliminate geographical barriers.</p>
+    </div>
+    <div class="drone">
+      <img src="img/vision.png" alt="vision drone" />
+    </div>
+
+    <!-- Operations -->
+    <div class="drone">
+      <img src="img/drone4.jpg" alt="patients households" />
+    </div>
+    <div>
+      <h1 class="section-title">Operations in South Africa Rural Areas</h1>
+      <p class="section-text">We deliver essential medicines to remote communities struggling with poor road infrastructure.</p>
+    </div>
+  </section>
+
+  <!-- How it Works section with four steps -->
+  <section>
+    <h1 class="heading"><strong>How It Works</strong></h1>
+    <section class="steps-section">
+      <div class="step">
+        <img src="img/clinic.jpg" alt="Clinic Process" class="step-icon" />
+        <h3>PROCESS</h3>
+        <p>Work with government clinics to give patient details.</p>
+      </div>
+      <div class="step">
+        <img src="img/clinics1.jpg" alt="Collect Medicines" class="step-icon" />
+        <h3>COLLECT</h3>
+        <p>Collect medicine in government clinics and deliver to patient residences.</p>
+      </div>
+      <div class="step">
+        <img src="img/clinics2.avif" alt="Fly Drone" class="step-icon" />
+        <h3>FLY</h3>
+        <p>Transport medicine from government clinics to patients.</p>
+      </div>
+      <div class="step">
+        <img src="img/clinics3.jpeg" alt="Deliver Medicine" class="step-icon" />
+        <h3>DELIVER</h3>
+        <p>We deliver medicine directly to patients' residences.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- Script for hamburger menu toggle on small screens -->
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("menu");
+    hamburger.addEventListener("click", () => {
+      menu.classList.toggle("active"); 
+    });
+  </script>
+
+  <!-- Footer with company info and social media links -->
+  <footer class="footer">
+    <p class="footer-text">
+      ©MediWings 2025<br>
+      Cape Town, South Africa<br>     
+      Phone: +27 798 4213 42<br>
+      Email: MediWings@.com
+    </p>
+    <div class="social-icons">
+      <ul>
+        <!-- Social media links using Ionicons -->
+        <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+        <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+        <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><ion-icon name="logo-tiktok"></ion-icon></a>
+        <a href="https://www.youtube.com" target="_blank" aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+        <a href="https://www.whatsapp.com" target="_blank" aria-label="WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+</html>

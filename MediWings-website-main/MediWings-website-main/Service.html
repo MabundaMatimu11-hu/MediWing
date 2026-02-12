@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediWings</title>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Icons library (used for social media logos like Facebook, Instagram) -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+ <!-- Internal CSS styling for layout and responsiveness -->
+  <style>
+   
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+/* General body style */
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    color: #222;
+    line-height: 1.6;
+  }
+ /* Main container holding everything in the center */
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  h1 {
+    text-align: center;
+    color: #1e40af;
+    font-size: 30px;
+    margin-bottom: 2rem;
+  }
+/* Grid layout for drones (2 columns or auto-fit) */
+  .grid-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 1rem;
+  }
+/* Style for images */
+  .grid-section img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+/* Drone title (name) */
+  h1.drone-name {
+    color: #1d4ed8;
+    font-size: 27px;
+    margin-bottom: 0.75rem;
+    text-align: left;
+  }
+
+  p.drone-text {
+    font-size: 18px;
+    color: #333;
+  }
+/* Drone card wrapper */
+  .drone {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+/* Decorative circular backgrounds behind the drone */
+  .drone::before, .drone::after {
+    content: "";
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  .drone::before {
+    width: 60%;
+    padding-bottom: 60%;
+    background-color: #fdf2e9;
+    z-index: -2;
+  }
+
+  .drone::after {
+    width: 45%;
+    padding-bottom: 45%;
+    background-color: #fae5d3;
+  }
+
+  /* Navbar for smaller screens */
+  @media (max-width: 768px) {
+    .hamburger {
+      display: block;
+      background: none;
+      border: none;
+      font-size: 30px;
+      color: #f7f4f4;
+      z-index: 20;
+      position: relative;
+    }
+
+    .navbar-links {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(30, 58, 138, 0.95);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 15;
+    }
+
+    .navbar-links.active {
+      display: flex;
+    }
+
+    .navbar-links li {
+      margin: 1.5rem 0;
+    }
+
+    .navbar-links li a {
+      color: #fff;
+      font-size: 2rem;
+      text-decoration: none;
+    }
+  }
+
+  /* Grid ordering fix on smaller screens */
+  @media (max-width: 480px) {
+    .grid-section {
+      gap: 2rem;
+      padding: 0;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    h1.drone-name {
+      font-size: 22px;
+      text-align: center;
+    }
+
+    p.drone-text {
+      font-size: 16px;
+    }
+
+    .drone::before {
+      width: 70%;
+      padding-bottom: 70%;
+    }
+
+    .drone::after {
+      width: 55%;
+      padding-bottom: 55%;
+    }
+  }
+@media (max-width: 34em) {
+    .drone {
+        transform: translateY(2.4rem);
+
+    }
+        .drone:nth-child(10) {
+        grid-row: 9;
+  }
+   
+}
+.drone-btn {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #1d4ed8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.drone-btn:hover {
+  background-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.drone-btn:active {
+  transform: scale(0.97);
+}
+.drone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  
+  padding: 1rem;
+ 
+}
+
+
+
+.drone-btn {
+  width: 150px;
+  padding: 0.75rem 1rem;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #1d4ed8;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.drone-btn:hover {
+  background-color: green;
+  transform: translateY(-2px);
+  color:black;
+}
+
+.drone-btn:active {
+  transform: scale(0.97);
+}
+
+@media (max-width: 768px) {
+  .drone {
+    padding: 0.8rem;
+  }
+
+  .drone-btn {
+    font-size: 0.95rem;
+  }
+  
+}
+
+
+
+ 
+</style>
+
+</head>
+
+<body>
+  <!-- Header with logo and navigation -->
+  <header class="head">
+    <div class="logo">
+      <img src="img/logo.png" alt="logo" />
+    </div>
+    <nav class="navbar">
+      <button class="hamburger" id="hamburger">&#9776;</button>
+      <ul id="menu" class="navbar-links">
+        <li><a href="Home.html">Home</a></li>
+        <li><a href="Service.html">Service</a></li>
+        <li><a href="TrackDelivery.html">Track Delivery</a></li>
+        <li><a href="ContactUs.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+ <!-- Main container -->
+  <section class="container">
+    <h1>Our Drone</h1>
+ <!-- Grid showing drones and descriptions -->
+    <section class="grid-section">
+      <div>
+        <!-- Flytrex drone description -->
+        <h1 class="drone-name">Flytrex</h1>
+        <p class="drone-text">
+          This drone is designed to deliver medicine quickly over short distances.
+          It takes off vertically, flies directly to the patient's location, and stores limited medication.
+          It is programmed with GPS to follow a safe flight path to its destination.
+        </p>
+      </div>
+       <!-- Flytrex drone image + button -->
+<div class="drone">
+  <img src="img/servicedrone1.jpg" alt="Flytrex" />
+
+  <a href="patientdetail.html">
+        <button class="drone-btn">Choose</button>
+  </a>
+</div>
+
+ <!-- VTOL drone image + button -->
+      <div class="drone">
+        <img src="img/servicedrone2.jpg" alt="VTOL Drone" />
+        <a href="patientdetail.html">
+              <button class="drone-btn">Choose</button>
+        </a>
+      </div>
+      <div>
+         <!-- VTOL drone description -->
+        <h1 class="drone-name">VTOL Drone</h1>
+        <p class="drone-text">
+          This is a VTOL (Vertical Take-Off and Landing) drone.
+          It is fast, stable, and capable of traveling long distances more efficiently than regular quadcopters.
+          It has a large storage that can carry up to 150–250 kg of medical supplies.
+        </p>
+      </div>
+
+      <div>
+         <!-- DroneUp description -->
+        <h1 class="drone-name">DroneUp</h1>
+        <p class="drone-text">
+          This drone is designed to deliver medicine quickly over short distances.
+          It takes off vertically, flies directly to the patient's location, and stores limited medication.
+          It is programmed with GPS to follow a safe flight path to its destination.
+        </p>
+      </div>
+       <!-- DroneUp image + button -->
+      <div class="drone">
+        <img src="img/servicedrone3.jpg" alt="DroneUp" />
+       <a href="patientdetail.html">
+           <button class="drone-btn">Choose</button>
+       </a>
+      </div>
+
+    <!-- SkyRelief image + button  -->
+      <div class="drone">
+        <img src="img/servicedrone4.jpg" alt="SkyRelief" />
+       <a href="patientdetail.html">
+          <button class="drone-btn">Choose</button>
+       </a>
+      </div>
+      <div>
+         <!-- SkyRelief description -->
+        <h1 class="drone-name">SkyRelief</h1>
+        <p class="drone-text">
+          This drone flies through the air and releases the medication using a small parachute,
+          which gently drops the package to the ground. It can travel up to 80 km one way and works in various weather conditions, including light rain and wind.
+        </p>
+      </div>
+
+      <div>
+        <!-- SkyPharm description -->
+        <h1 class="drone-name">SkyPharm </h1>
+        <p class="drone-text">
+          This drone transport essential medication efficiently and safely over long distances. 
+          it can travel up to 25–40 kilometers on a single charge, depending on weather conditions and terrain.
+           It can hold and deliver up to 2–5 kilograms of medication. 
+        </p>
+      </div>
+      <!-- SkyPharm image  + button-->
+      <div class="drone">
+        <img src="img/servicedrone5.png" alt="SkyRelief" />
+       <a href="patientdetail.html">
+           <button class="drone-btn">Choose</button>
+      </a>
+      </div>
+    </section>
+  </section>
+
+   <!-- Script: makes the hamburger button open/close the menu on small screens -->
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("menu");
+
+    hamburger.addEventListener("click", () => {
+      menu.classList.toggle("active");
+    });
+  </script>
+
+    <!-- Footer with company info and social media links -->
+
+  <footer class="footer">
+    <p class="footer-text">
+      ©MediWings 2025 <br>
+      Cape Town, South Africa<br>
+      Phone: +27 798 4213 42 <br>
+      Email: MediWings@.com
+    </p>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+      <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+      <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><ion-icon name="logo-tiktok"></ion-icon></a>
+      <a href="https://www.youtube.com" target="_blank" aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+      <a href="https://www.whatsapp.com" target="_blank" aria-label="WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
+    </div>
+  </footer>
+ 
+</body>
+</html>

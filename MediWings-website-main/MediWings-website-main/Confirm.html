@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmation - MediWings</title>
+  <link rel="stylesheet" href="style.css"/>
+  
+  <!-- Internal CSS styles specific to this page -->
+  <style>
+    /* Sets the basic font and background for the whole page */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Main content container with white background and shadow */
+    .container {
+      max-width: 600px;
+      margin: 180px auto 150px;
+      background: #fff;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    /* Green heading style for the success message */
+    h1 {
+      color: green;
+    }
+    
+    /* Styling for informational text */
+    .info {
+      margin: 20px 0;
+      font-size: 18px;
+    }
+    
+    /* Container for the action buttons, centered with space between them */
+    .buttons {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    /* Button styling with blue background and white text */
+    .button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+    
+    /* Button color changes when hovered with mouse */
+    .button:hover {
+      background-color: green;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main content container -->
+  <div class="container">
+    <!-- Success message heading -->
+    <h1>Order Approved!</h1>
+    
+    <!-- Personalized message for the patient -->
+    <p class="info">Thank you, <span id="patientName"></span>.</p>
+    
+    <!-- Delivery information message -->
+    <p class="info">Your delivery to <span id="patientAddress"></span> is being prepared.</p>
+
+    <!-- Action buttons container -->
+    <div class="buttons">
+      <!-- Button to track the delivery status -->
+      <a href="TrackDelivery.html" class="button">Track Delivery</a>
+      
+      <!-- Button to return to the home page -->
+      <a href="Home.html" class="button">Home</a>
+    </div>
+  </div>
+
+  <!-- JavaScript to display the patient's information -->
+  <script>
+    // Retrieve the patient's name from temporary browser storage
+    const patientName = sessionStorage.getItem("patientName");
+    
+    // Retrieve the patient's address from temporary browser storage
+    const patientAddress = sessionStorage.getItem("patientAddress");
+
+    // Display the patient's name on the page, or show a placeholder if not available
+    document.getElementById("patientName").textContent = patientName || "[Patient Name]";
+    
+    // Display the patient's address on the page, or show a placeholder if not available
+    document.getElementById("patientAddress").textContent = patientAddress || "[Address]";
+  </script>
+</body>
+</html>

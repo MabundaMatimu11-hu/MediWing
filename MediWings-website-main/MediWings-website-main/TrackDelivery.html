@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MediWings</title>
+  <link rel="stylesheet" href="style.css"/>
+  <!-- Load Ionicons library for social media icons -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+   <!-- Internal CSS styling for layout and responsiveness -->
+<style>
+    /* Container that holds the tracking box */
+    .tracking-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Main title style */
+    h1 {
+      text-align: center;
+      color: #0D1B2A;
+    }
+
+    /* Patient and delivery details section */
+    .delivery-info {
+      margin-bottom: 25px;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* Tracker line layout */
+    .status-tracker {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    /* Blue moving line (progress) */
+    .progress-line {
+      position: absolute;
+      top: 28px;
+      left: 40px;
+      height: 4px;
+      background: #1B8BD1;
+      width: 0%; /* starts empty */
+      transition: width 1s ease-in-out;
+      z-index: 0;
+    }
+
+    /* Grey background line (behind the blue progress) */
+    .status-background-line {
+      position: absolute;
+      top: 28px;
+      left: 40px;
+      right: 40px;
+      height: 4px;
+      background: #d3e0ea;
+      z-index: 0;
+    }
+
+    /* Each step (Out for delivery, In Transit, Delivered) */
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 1;
+      position: relative;
+    }
+
+    /* Circle for each step number */
+    .circle {
+      background: #d3e0ea;
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      transition: background-color 0.5s;
+    }
+
+    /* Active step turns blue */
+    .step.active .circle {
+      background-color: #1B8BD1;
+    }
+
+    /* Completed step turns green */
+    .step.completed .circle {
+      background-color: #4caf50;
+    }
+
+    /* Labels under the steps */
+    .step p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+   /* ✅ Responsive layout for tablets/phones */
+@media (max-width: 768px) {
+  .tracking-container {
+    max-width: 95%;
+    padding: 15px;
+    text-align: left;
+  }
+
+  /* Stack tracker vertically for smaller screens */
+  .status-tracker {
+    flex-direction: block;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Adjust circle spacing */
+  .circle {
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  /* Map image adjusts to screen size */
+  .map-placeholder img {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+  }
+}
+
+    /* Map section placeholder */
+    .map-placeholder {
+      text-align: center;
+      padding: 40px;
+      font-weight: bold;
+    }
+    .map-placeholder img{
+      width:100%;
+      margin: 0;
+    }
+
+    /* Start button styling */
+    .btn-start {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    /* Button hover effect */
+    .btn-start:hover {
+      background-color:green;
+      color: black;
+    }
+</style>
+</head>
+<body>
+  <!-- HEADER with logo and navigation -->
+  <header class="head">
+    <div class="logo">
+      <img src="img/logo.png" alt="logo" />
+    </div>
+    <nav class="navbar">
+      <!-- Hamburger menu for mobile -->
+      <button class="hamburger" id="hamburger">&#9776;</button>
+      <ul id="menu" class="navbar-links">
+        <li><a href="Home.html">Home</a></li>
+        <li><a href="Service.html">Service</a></li>
+        <li><a href="TrackDelivery.html">Track Delivery</a></li>
+        <li><a href="ContactUs.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN TRACKING SECTION -->
+   <div class="tracking-container">
+    <h1>Drone Delivery Status</h1>
+    
+    <!-- Info box to show patient + delivery details -->
+    <div class="delivery-info">
+      <p><strong>Patient Name:</strong> </p>
+      <p><strong>Address:</strong></p>
+      <p><strong>Clinic:</strong> </p>
+      <p><strong>Phone Number:</strong></p>
+      <p><strong>Drone ID:</strong> </p>
+    </div>
+
+    <!-- Progress tracker (3 steps) -->
+    <div class="status-tracker">
+      <div class="status-background-line"></div>
+      <div class="progress-line" id="progress-line"></div>
+
+      <!-- Step 1 -->
+      <div class="step" id="step1">
+        <div class="circle">1</div>
+        <p>Out for Delivery</p>
+      </div>
+      <!-- Step 2 -->
+      <div class="step" id="step2">
+        <div class="circle">2</div>
+        <p>In Transit</p>
+      </div>
+      <!-- Step 3 -->
+      <div class="step" id="step3">
+        <div class="circle">3</div>
+        <p>Delivered</p>
+      </div>
+    </div>
+
+    <!-- Button to start progress animation -->
+    <button class="btn-start" onclick="startTracking()">Start Delivery</button>
+
+    <!-- Map placeholder image -->
+    <div class="map-placeholder">
+      <p><img src="img/TRACK-IMG.png" alt="This is the image of drone delivering medical"></p>
+    </div>
+  </div>
+
+  <!-- SCRIPT for hamburger menu -->
+  <script>
+     const hamburger = document.getElementById("hamburger");
+     const menu = document.getElementById("menu");
+
+     hamburger.addEventListener("click", () => {
+       menu.classList.toggle("active"); // show/hide menu
+     })
+  </script>
+
+  <!-- SCRIPT for progress tracker -->
+  <script>
+    function startTracking() {
+      const progressLine = document.getElementById('progress-line');
+      const steps = [
+        document.getElementById('step1'),
+        document.getElementById('step2'),
+        document.getElementById('step3')
+      ];
+
+      // Reset tracker before starting
+      progressLine.style.width = "10%";
+      steps.forEach(step => {
+        step.classList.remove('active', 'completed');
+      });
+
+      // Step 1 becomes completed
+      setTimeout(() => {
+        steps[0].classList.add('completed');
+        progressLine.style.width = "50%";
+      }, 1000);
+
+      // Step 2 becomes completed
+      setTimeout(() => {
+        steps[1].classList.add('completed');
+        progressLine.style.width = "85%";
+      }, 2700);
+
+      // Step 3 becomes completed
+      setTimeout(() => {
+        steps[2].classList.add('completed');
+      }, 3000);
+    }
+
+    // Get patient data from sessionStorage
+    const name = sessionStorage.getItem("patientName");
+    const address = sessionStorage.getItem("patientAddress");
+
+    // Select info box and update with patient details
+    const infoBox = document.querySelector(".delivery-info");
+    if (infoBox) {
+      infoBox.innerHTML = `
+        <p><strong>Patient Name:</strong> ${name || "Not available"}</p>
+        <p><strong>Address:</strong> ${address || "Not available"}</p>
+        <p><strong>Clinic:</strong> ${sessionStorage.getItem("clinicName") || "Not available"}</p>
+        <p><strong>Phone Number:</strong> ${sessionStorage.getItem("phoneNumber") || "Not available"}</p>
+        <p><strong>Drone ID:</strong> DR-42356-ZA</p>
+      `;
+    }
+  </script>
+
+  <!-- FOOTER: company info and social media links -->
+  <footer class="footer">
+    <p class="footer-text">©MediWings 2025 <br>
+                         Cape Town, South Africa<br>
+                         Phone +27 798 4213 42 <br>
+                         Email MediWings@.com
+   </p>
+   <div class="social-icons">
+    <a href="https://www.facebook.com" target="_blank" aria-label="Facebook"><ion-icon name="logo-facebook"></ion-icon></a>
+    <a href="https://www.instagram.com" target="_blank" aria-label="Instagram"><ion-icon name="logo-instagram"></ion-icon></a>
+    <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><ion-icon name="logo-tiktok"></ion-icon></a>
+    <a href="https://www.youtube.com" target="_blank" aria-label="YouTube"><ion-icon name="logo-youtube"></ion-icon></a>
+    <a href="https://www.whatsapp.com" target="_blank" aria-label="WhatsApp"><ion-icon name="logo-whatsapp"></ion-icon></a>
+   </div>
+  </footer>
+
+</body>
+</html>
